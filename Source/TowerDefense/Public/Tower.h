@@ -9,16 +9,6 @@
 class ACustomPlayerController;
 class ABaseProjectile;
 
-UENUM()
-enum class ETowerName : uint8
-{
-	Lich UMETA(DisplayName = "Lich"),
-	Skeleton UMETA(DisplayName = "Skeleton"),
-	Ghoul UMETA(DisplayName = "Ghoul"),
-	Goblin UMETA(DisplayName = "Goblin"),
-	Zombie UMETA(DisplayName = "Zombie"),
-};
-
 UCLASS()
 class TOWERDEFENSE_API ATower : public AActor
 {
@@ -42,6 +32,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TArray<UAnimSequence*> AttackAnimations;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
+	UAnimSequence* AgrouAnimation;
+
 
 	// STATS
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
@@ -50,8 +43,6 @@ public:
 	float AttackSpeed = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
 	int Price = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
-	bool CanAttack = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
 	ABaseProjectile* Projectile;
 
@@ -88,6 +79,6 @@ public:
 	void OnClicked();
 
 	UFUNCTION(BlueprintCallable)
-	void InitTower(ETowerName TowerName);
+	virtual void InitTower();
 
 };

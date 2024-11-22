@@ -64,7 +64,6 @@ void ATower::OnClicked()
 		Attack = PlayerController->SelectedTower->Attack;
 		AttackSpeed = PlayerController->SelectedTower->AttackSpeed;
 		Price = PlayerController->SelectedTower->Price;
-		CanAttack = PlayerController->SelectedTower->CanAttack;
 		PlayerController->Gold = PlayerController->Gold - PlayerController->SelectedTower->Price;
 		PlayerController->SelectedTower = nullptr;
 		bIsAvailable = false;
@@ -77,40 +76,7 @@ void ATower::OnClicked()
 
 }
 
-void ATower::InitTower(ETowerName TowerName)
+void ATower::InitTower()
 {
-	switch (TowerName)
-	{
-		case ETowerName::Lich:
-			Attack = 5;
-			AttackSpeed = 2.0;
-			Price = 50;
-			TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
-			IdleAnimation = static_cast<UAnimSequence*>(ConstructorHelpers::FObjectFinder<UAnimSequence>(TEXT("/Script/Engine.AnimSequence'/Game/Assets/UndeadPack/Lich/Animations/Anim_Idle.Anim_Idle'")).Object);
-			SpawnAnimation = static_cast<UAnimSequence*>(ConstructorHelpers::FObjectFinder<UAnimSequence>(TEXT("/Script/Engine.AnimSequence'/Game/Assets/UndeadPack/Lich/Animations/Anim_Emergence.Anim_Emergence'")).Object);
-			AttackAnimations.Add(static_cast<UAnimSequence*>(ConstructorHelpers::FObjectFinder<UAnimSequence>(TEXT("/Script/Engine.AnimSequence'/Game/Assets/UndeadPack/Lich/Animations/Anim_Call.Anim_Call'")).Object));
-			break;
-		case ETowerName::Skeleton:
-			Attack = 10;
-			AttackSpeed = 5.0;
-			Price = 20;
-			TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/SkeletonEnemy/Mesh/SK_Skeleton.SK_Skeleton'")).Object);
-			break;
-		case ETowerName::Ghoul:
-			Attack = 25;
-			AttackSpeed = 4.0;
-			Price = 15;
-			break;
-		case ETowerName::Goblin:
-			Attack = 15;
-			AttackSpeed = 3.0;
-			Price = 10;
-			break;
-		case ETowerName::Zombie:
-			Attack = 10;
-			AttackSpeed = 2.0;
-			Price = 5;
-			break;
-	}
 }
 
