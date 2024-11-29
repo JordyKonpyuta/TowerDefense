@@ -37,13 +37,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	int Score = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-	ATower* SelectedTower;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsInPlaceTowerMode = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ETowerType TowerType = ETowerType::Zombie;
 
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void DisplayTowerWidget();
-
-	UFUNCTION(BlueprintCallable)
-	void SetSelectedTower(ETowerType TowerType);
+	
 };

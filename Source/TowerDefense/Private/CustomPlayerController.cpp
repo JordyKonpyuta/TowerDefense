@@ -13,30 +13,3 @@
 void ACustomPlayerController::DisplayTowerWidget_Implementation()
 {
 }
-
-void ACustomPlayerController::SetSelectedTower(ETowerType TowerType)
-{
-	switch (TowerType)
-	{
-		case ETowerType::Lich:
-			SelectedTower = NewObject<ATower_Child_Lich>();
-			SelectedTower->InitTower();
-			break;
-		case ETowerType::Skeleton:
-			SelectedTower = NewObject<ATower_Child_Skeleton>();
-			SelectedTower->InitTower();
-			break;
-		case ETowerType::Ghoul:
-			SelectedTower = NewObject<ATower_Child_Ghoul>();
-			SelectedTower->InitTower();
-			break;
-		case ETowerType::Goblin:
-			SelectedTower = NewObject<ATower_Child_Goblin>();
-			SelectedTower->InitTower();
-			break;
-		case ETowerType::Zombie:
-			SelectedTower = NewObject<ATower_Child_Zombie>();
-			SelectedTower->InitTower();
-			break;
-	}
-}

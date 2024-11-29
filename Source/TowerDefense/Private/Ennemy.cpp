@@ -32,3 +32,11 @@ void AEnnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+void AEnnemy::OnDeath()
+{
+}
+
+void AEnnemy::InitEnnemy()
+{
+}
+

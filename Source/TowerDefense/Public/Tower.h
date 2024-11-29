@@ -46,17 +46,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
 	ABaseProjectile* Projectile;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
-	bool bIsAvailable = true;
-
-
-	// REFERENCES
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
-	ACustomPlayerController* PlayerController;
-
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
-	UStaticMeshComponent* Pillar;
 
 protected:
 	// Called when the game starts or when spawned
@@ -68,15 +57,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void AttackEnnemy();
-
-	UFUNCTION(BlueprintCallable)
-	void SetTowerMesh();
-
-	UFUNCTION(BlueprintCallable)
-	void OnUnhovered();
-
-	UFUNCTION(BlueprintCallable)
-	void OnClicked();
+	
 
 	UFUNCTION(BlueprintCallable)
 	virtual void InitTower();
