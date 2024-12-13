@@ -22,6 +22,7 @@ ATowerSlot::ATowerSlot()
 	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
 	SetRootComponent(Pillar);
 	TowerMesh->SetVisibility(false);
+	Pillar->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
 
 }
 
@@ -31,6 +32,8 @@ void ATowerSlot::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<ACustomPlayerController>(GetWorld()->GetFirstPlayerController());
+
+	// Pillar->OnClicked.AddDynamic(this, &ATowerSlot::OnClicked());
 	
 }
 
@@ -48,23 +51,23 @@ void ATowerSlot::SetTowerMesh()
 		TowerMesh->SetVisibility(true);
 		switch (PlayerController->TowerType)
 		{
-			case PlayerController->TowerType == ETowerType::Zombie:
+			case ETowerType::Zombie:
 				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Ghoul:
+			case ETowerType::Ghoul:
 				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Goblin:
+			case ETowerType::Goblin:
 				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/EnemyGoblin/Mesh/SM_EnemyGoblin.SM_EnemyGoblin'")).Object);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Lich:
+			case ETowerType::Lich:
 				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Skeleton:
+			case ETowerType::Skeleton:
 				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
 				break;
 				
@@ -97,31 +100,31 @@ void ATowerSlot::OnClicked()
 		{
 			switch (PlayerController->TowerType)
 			{
-			case PlayerController->TowerType == ETowerType::Zombie:
+			case ETowerType::Zombie:
 				TowerRef = GetWorld()->SpawnActor<ATower_Child_Zombie>(Arrow->GetRelativeLocation(), Arrow->GetRelativeRotation());
 				PlayerController->Gold = PlayerController->Gold - TowerRef->Price;
 				TowerMesh->SetVisibility(false);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Ghoul:
+			case ETowerType::Ghoul:
 				TowerRef = GetWorld()->SpawnActor<ATower_Child_Ghoul>(Arrow->GetRelativeLocation(), Arrow->GetRelativeRotation());
 				PlayerController->Gold = PlayerController->Gold - TowerRef->Price;
 				TowerMesh->SetVisibility(false);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Goblin:
+			case ETowerType::Goblin:
 				TowerRef = GetWorld()->SpawnActor<ATower_Child_Goblin>(Arrow->GetRelativeLocation(), Arrow->GetRelativeRotation());
 				PlayerController->Gold = PlayerController->Gold - TowerRef->Price;
 				TowerMesh->SetVisibility(false);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Lich:
+			case ETowerType::Lich:
 				TowerRef = GetWorld()->SpawnActor<ATower_Child_Lich>(Arrow->GetRelativeLocation(), Arrow->GetRelativeRotation());
 				PlayerController->Gold = PlayerController->Gold - TowerRef->Price;
 				TowerMesh->SetVisibility(false);
 				break;
 
-			case PlayerController->TowerType == ETowerType::Skeleton:
+			case ETowerType::Skeleton:
 				TowerRef = GetWorld()->SpawnActor<ATower_Child_Skeleton>(Arrow->GetRelativeLocation(), Arrow->GetRelativeRotation());
 				PlayerController->Gold = PlayerController->Gold - TowerRef->Price;
 				TowerMesh->SetVisibility(false);

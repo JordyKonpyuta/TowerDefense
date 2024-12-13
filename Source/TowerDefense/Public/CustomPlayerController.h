@@ -46,5 +46,8 @@ public:
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void DisplayTowerWidget();
+
+	UFUNCTION(BlueprintCallable)
+	void SetPlaceTowerMode(ETowerType TowerToPlace);
 	
 };

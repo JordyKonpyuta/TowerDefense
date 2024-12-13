@@ -13,3 +13,9 @@
 void ACustomPlayerController::DisplayTowerWidget_Implementation()
 {
 }
+
+void ACustomPlayerController::SetPlaceTowerMode(ETowerType TowerToPlace)
+{
+	bIsInPlaceTowerMode = true;
+	TowerType = TowerToPlace;
+}
