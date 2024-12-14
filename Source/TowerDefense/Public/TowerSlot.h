@@ -22,6 +22,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
 	USkeletalMeshComponent* TowerMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	TArray<USkeletalMeshComponent*> TowerMeshes = {nullptr,nullptr,nullptr,nullptr,nullptr};
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tower")
 	bool bIsAvailable = true;
 
@@ -46,13 +49,13 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void SetTowerMesh();
+	void SetTowerMesh(AActor* TouchedActor);
 
 	UFUNCTION(BlueprintNativeEvent)
 	void SelectTowerType();
 
 	UFUNCTION(BlueprintCallable)
-	void OnUnhovered();
+	void OnUnhovered(AActor* TouchedActor);
 
 	UFUNCTION(BlueprintCallable)
 	void OnClicked();

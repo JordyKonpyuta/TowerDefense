@@ -9,6 +9,11 @@ AEnnemy::AEnnemy()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	SkeletalMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	RootComponent = SkeletalMesh;
+
+	SkeletalMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Zombie/Mesh/SK_Zombie.SK_Zombie'")).Object);
+
 }
 
 // Called when the game starts or when spawned

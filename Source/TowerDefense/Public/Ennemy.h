@@ -24,6 +24,9 @@ public:
 	// Sets default values for this character's properties
 	AEnnemy();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* SkeletalMesh;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

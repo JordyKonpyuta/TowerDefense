@@ -20,9 +20,17 @@ ATowerSlot::ATowerSlot()
 	Pillar = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pillar"));
 	TowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("TowerMesh"));
 	Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
-	SetRootComponent(Pillar);
+	RootComponent = Pillar;
+	TowerMesh->SetupAttachment(RootComponent);
+	Arrow->SetupAttachment(RootComponent);
 	TowerMesh->SetVisibility(false);
 	Pillar->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility, ECollisionResponse::ECR_Block);
+
+	TowerMeshes[0] = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Zombie/Mesh/SK_Zombie.SK_Zombie'")).Object);
+	TowerMeshes[1] = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Ghoul/Mesh/SK_Ghoul_Full.SK_Ghoul_Full'")).Object);
+	TowerMeshes[2] = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/EnemyGoblin/Mesh/SM_EnemyGoblin.SM_EnemyGoblin'")).Object);
+	TowerMeshes[3] = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/SkeletonEnemy/Mesh/SK_Skeleton.SK_Skeleton'")).Object);
+	TowerMeshes[4] = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
 
 }
 
@@ -32,8 +40,6 @@ void ATowerSlot::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<ACustomPlayerController>(GetWorld()->GetFirstPlayerController());
-
-	// Pillar->OnClicked.AddDynamic(this, &ATowerSlot::OnClicked());
 	
 }
 
@@ -44,7 +50,7 @@ void ATowerSlot::Tick(float DeltaTime)
 
 }
 
-void ATowerSlot::SetTowerMesh()
+void ATowerSlot::SetTowerMesh(AActor* TouchedActor)
 {
 	if (bIsAvailable)
 	{
@@ -52,23 +58,23 @@ void ATowerSlot::SetTowerMesh()
 		switch (PlayerController->TowerType)
 		{
 			case ETowerType::Zombie:
-				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
+				TowerMesh = TowerMeshes[0];
 				break;
 
 			case ETowerType::Ghoul:
-				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
+				TowerMesh = TowerMeshes[1];
 				break;
 
 			case ETowerType::Goblin:
-				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/EnemyGoblin/Mesh/SM_EnemyGoblin.SM_EnemyGoblin'")).Object);
-				break;
-
-			case ETowerType::Lich:
-				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
+				TowerMesh = TowerMeshes[2];
 				break;
 
 			case ETowerType::Skeleton:
-				TowerMesh = static_cast<USkeletalMeshComponent*>(ConstructorHelpers::FObjectFinder<USkeletalMesh>(TEXT("/Script/Engine.SkeletalMesh'/Game/Assets/UndeadPack/Lich/Mesh/SK_Lich.SK_Lich'")).Object);
+				TowerMesh = TowerMeshes[3];
+				break;
+
+			case ETowerType::Lich:
+				TowerMesh = TowerMeshes[4];
 				break;
 				
 			default:
@@ -86,7 +92,7 @@ void ATowerSlot::SelectTowerType_Implementation()
 {
 }
 
-void ATowerSlot::OnUnhovered()
+void ATowerSlot::OnUnhovered(AActor* TouchedActor)
 {
 	if (PlayerController->bIsInPlaceTowerMode)
 		TowerMesh->SetVisibility(false);
